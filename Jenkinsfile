@@ -65,7 +65,7 @@ pipeline {
         stage('build and Tag docker image') {
             steps {
                 script {
-                        sh "docker build -t youngminds73/ekart:latest -f docker/Dockerfile ."
+                        sh "docker build -t danish573/Ekart:latest -f docker/Dockerfile ."
                     }
             }
         }
@@ -74,15 +74,15 @@ pipeline {
             steps{
                 script{
                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u youngminds73 -p ${dockerhubpwd}'}
-                   sh 'docker push youngminds73/ekart:latest'
+                   sh 'docker login -u dkhan573 -p ${dockerhubpwd}'}
+                   sh 'docker push danish573/Ekart:latest'
                 }
             }
         }
         stage('EKS and Kubectl configuration'){
             steps{
                 script{
-                    sh 'aws eks update-kubeconfig --region ap-south-1 --name ankit-cluster'
+                    sh 'aws eks update-kubeconfig --region ap-south-1 --name proj-cluster'
                 }
             }
         }
